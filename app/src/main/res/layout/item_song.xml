@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:bind="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+
+		<variable
+			name="viewHolder"
+			type="com.konopelko.skooving.presentation.main.adapter.SongsViewHolder" />
+
+		<variable
+			name="song"
+			type="com.konopelko.skooving.domain.entity.Song" />
+	</data>
+
+	<androidx.cardview.widget.CardView
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="16dp"
+		android:onClick="@{() -> viewHolder.onSongClicked(song)}"
+		android:paddingTop="16dp">
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content">
+
+			<ImageView
+				android:id="@+id/songCover"
+				android:layout_width="match_parent"
+				android:layout_height="200dp"
+				android:scaleType="centerCrop"
+				app:layout_constraintTop_toTopOf="parent"
+				bind:imageSource="@{song.cover}"
+				tools:src="@drawable/ic_cover_template" />
+
+			<RatingBar
+				style="?android:attr/ratingBarStyleSmall"
+				android:id="@+id/songRatingBar"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="16dp"
+				android:layout_marginTop="8dp"
+				android:layout_marginBottom="16dp"
+				android:rating="@{song.rating}"
+				android:isIndicator="true"
+				android:progressBackgroundTint="#353535"
+				android:scaleX="1.5"
+				android:scaleY="1.5"
+				android:transformPivotX="0dp"
+				android:transformPivotY="0dp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/songTitle" />
+
+			<TextView
+				android:id="@+id/songTitle"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginStart="16dp"
+				android:layout_marginEnd="16dp"
+				android:layout_marginBottom="16dp"
+				android:text="@{song.title}"
+				android:textAlignment="center"
+				android:textColor="@color/purple_200"
+				android:textSize="24sp"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/songCover"
+				tools:text="Song Title" />
+
+			<ImageView
+				android:id="@+id/favoriteButton"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="16dp"
+				android:onClick="@{() -> viewHolder.onFavoriteClicked(song)}"
+				android:src="@{ song.isFavorite ? @drawable/ic_favorite_selected : @drawable/ic_favorite_not_selected}"
+				app:layout_constraintBottom_toBottomOf="@+id/songRatingBar"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintTop_toTopOf="@+id/songRatingBar"
+				tools:src="@drawable/ic_favorite_selected" />
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	</androidx.cardview.widget.CardView>
+</layout>

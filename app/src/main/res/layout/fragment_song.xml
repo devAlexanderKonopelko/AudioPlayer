@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+	<data>
+
+		<variable
+			name="viewModel"
+			type="com.konopelko.skooving.presentation.song.SongViewModel" />
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<TextView
+			android:id="@+id/songTitle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="32dp"
+			android:text="@{viewModel.song.title}"
+			android:textSize="24sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			tools:text="Song Cover" />
+
+		<ImageView
+			android:id="@+id/audioCover"
+			android:layout_width="300dp"
+			android:layout_height="300dp"
+			android:onClick="@{() -> viewModel.onCoverClicked()}"
+			bind:imageSource="@{viewModel.song.cover}"
+			android:layout_marginTop="32dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/songTitle"
+			tools:src="@drawable/ic_cover_template"/>
+
+		<SeekBar
+			android:id="@+id/songSeekBar"
+			android:layout_width="0dp"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="32dp"
+			android:thumbTint="@color/purple_200"
+			app:layout_constraintEnd_toStartOf="@+id/songDuration"
+			app:layout_constraintStart_toEndOf="@+id/songCurrentPosition"
+			app:layout_constraintTop_toBottomOf="@+id/audioCover" />
+
+		<TextView
+			android:id="@+id/songCurrentPosition"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="16dp"
+			android:text="0:00"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/songSeekBar" />
+
+		<TextView
+			android:id="@+id/songDuration"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="16dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/songSeekBar"
+			tools:text="3:20" />
+
+		<ImageView
+			android:id="@+id/playBtn"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:layout_marginTop="32dp"
+			android:src="@drawable/ic_arrow_play"
+			app:layout_constraintTop_toBottomOf="@+id/songSeekBar"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent" />
+
+		<ImageView
+			android:id="@+id/pauseBtn"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:layout_marginTop="32dp"
+			android:src="@drawable/ic_pause"
+			android:visibility="gone"
+			app:layout_constraintTop_toBottomOf="@+id/songSeekBar"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent" />
+
+		<ImageView
+			android:id="@+id/playForwardBtn"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:layout_marginStart="16dp"
+			android:layout_marginTop="32dp"
+			android:src="@drawable/ic_play_forward"
+			app:layout_constraintTop_toBottomOf="@+id/songSeekBar"
+			app:layout_constraintStart_toEndOf="@+id/playBtn" />
+
+		<ImageView
+			android:id="@+id/playBackBtn"
+			android:layout_width="50dp"
+			android:layout_height="50dp"
+			android:layout_marginEnd="16dp"
+			android:layout_marginTop="32dp"
+			android:src="@drawable/ic_play_back"
+			app:layout_constraintEnd_toStartOf="@+id/playBtn"
+			app:layout_constraintTop_toBottomOf="@+id/songSeekBar" />
+
+		<RatingBar
+			android:id="@+id/songRatingBar"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="32dp"
+			android:numStars="5"
+			android:stepSize="1"
+			android:rating="@{viewModel.song.rating}"
+			bind:onRating="@{viewModel.onRatingChanged}"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent" />
+
+		<ImageView
+			android:id="@+id/favoriteButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginEnd="16dp"
+			android:onClick="@{() -> viewModel.onFavoriteClicked()}"
+			android:src="@{ viewModel.song.isFavorite ? @drawable/ic_favorite_selected : @drawable/ic_favorite_not_selected}"
+			app:layout_constraintBottom_toBottomOf="@+id/playForwardBtn"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="@+id/playForwardBtn"
+			tools:src="@drawable/ic_favorite_selected" />
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
